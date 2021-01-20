@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>EXHades&#39;Blog</title>
+  
+  <subtitle>EXHades - Notes</subtitle>
+  <link href="https://exhades.top/atom.xml" rel="self"/>
+  
+  <link href="https://exhades.top/"/>
+  <updated>2020-11-07T08:01:32.000Z</updated>
+  <id>https://exhades.top/</id>
+  
+  <author>
+    <name>EXHades</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 sccahe 缓存编译数据，以提高 Rust 项目编译速度</title>
+    <link href="https://exhades.top/2020/11/07/0/"/>
+    <id>https://exhades.top/2020/11/07/0/</id>
+    <published>2020-11-07T08:01:32.000Z</published>
+    <updated>2020-11-07T08:01:32.000Z</updated>
+    
+    
+    <summary type="html">&lt;hr&gt;</summary>
+    
+    
+    
+    <category term="Dev" scheme="https://exhades.top/categories/Dev/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>EXHades&#39; 2019 Summed</title>
+    <link href="https://exhades.top/2020/01/25/2019_Summed/"/>
+    <id>https://exhades.top/2020/01/25/2019_Summed/</id>
+    <published>2020-01-24T16:00:00.000Z</published>
+    <updated>2020-10-01T15:39:22.586Z</updated>
+    
+    
+    <summary type="html">&lt;hr&gt;</summary>
+    
+    
+    
+    <category term="Summed" scheme="https://exhades.top/categories/Summed/"/>
+    
+    
+    <category term="Summed" scheme="https://exhades.top/tags/Summed/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EXHades&#39; 2020 Records</title>
+    <link href="https://exhades.top/2020/01/24/2020_Records/"/>
+    <id>https://exhades.top/2020/01/24/2020_Records/</id>
+    <published>2020-01-23T16:00:00.000Z</published>
+    <updated>2021-01-20T11:06:56.505Z</updated>
+    
+    
+    <summary type="html">Diary and Learn and Life Records,the record is password protected.</summary>
+    
+    
+    
+    <category term="Records" scheme="https://exhades.top/categories/Records/"/>
+    
+    
+    <category term="Records" scheme="https://exhades.top/tags/Records/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EXHades&#39; 2019 Records</title>
+    <link href="https://exhades.top/2019/02/04/2019_Records/"/>
+    <id>https://exhades.top/2019/02/04/2019_Records/</id>
+    <published>2019-02-03T16:00:00.000Z</published>
+    <updated>2020-01-23T16:00:00.000Z</updated>
+    
+    
+    <summary type="html">Diary and Learn and Life Records,the record is password protected,Please contact me if you need a password; I am not a native English speaker, so please excuse any language mistakes.</summary>
+    
+    
+    
+    <category term="Records" scheme="https://exhades.top/categories/Records/"/>
+    
+    
+    <category term="Records" scheme="https://exhades.top/tags/Records/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EXHades&#39; 2018 Records</title>
+    <link href="https://exhades.top/2018/04/19/2018_Records/"/>
+    <id>https://exhades.top/2018/04/19/2018_Records/</id>
+    <published>2018-04-18T16:00:00.000Z</published>
+    <updated>2019-02-02T16:00:00.000Z</updated>
+    
+    
+    <summary type="html">This article is password protected!</summary>
+    
+    
+    
+    <category term="Records" scheme="https://exhades.top/categories/Records/"/>
+    
+    
+    <category term="Records" scheme="https://exhades.top/tags/Records/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World~</title>
+    <link href="https://exhades.top/2017/12/03/hello-world/"/>
+    <id>https://exhades.top/2017/12/03/hello-world/</id>
+    <published>2017-12-02T16:00:00.000Z</published>
+    <updated>2017-12-02T16:00:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;按照惯例先来个Hello World~&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+</feed>

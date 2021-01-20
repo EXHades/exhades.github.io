@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author"><title>使用 sccahe 缓存编译数据，以提高 Rust 项目编译速度 · EXHades'Blog</title><meta name="description" content="Rust 编译慢是真的无语，尤其是大型一点的项目执行下 cargo build --release 后我都可以先去吃个饭了。。。
+Rust 编译慢的原因可以看下 Rust 编译模型之殇
+如果只是单个 workspace 的话，其实是没必要去设置 Sccahe， 除非有多个项目都依赖了相同版本的组件。"><meta name="keywords" content=""><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">Never stop asking questions</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">保持好奇心与探索欲</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">Home</a></li><li><a href="/archives">Archive</a></li><li><a href="/categories">Categories</a></li><li><a href="/tags">Tags</a></li><li><a href="/about/index.html">About Me</a></li><li class="soc"><a href="https://github.com/exhades" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://twitter.com/exhades" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter">&nbsp;</i></a><a href="https://exhades.top/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>使用 sccahe 缓存编译数据，以提高 Rust 项目编译速度</a></p><p class="post-meta"><span class="date meta-item">Posted at&nbsp;2020-11-07</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Dev/" title="Dev" class="a-tag">Dev</a><span>&nbsp;</span></span></p><p class="post-abstract"><hr>
+<a id="more"></a>
+
+<ul>
+<li>Rust 编译慢是真的无语，尤其是大型一点的项目执行下 <code>cargo build --release</code> 后我都可以先去吃个饭了。。。</li>
+<li>Rust 编译慢的原因可以看下 <a target="_blank" rel="noopener" href="https://github.com/rust-lang-cn/rust-compilation-model-calamity-zh">Rust 编译模型之殇</a></li>
+<li><strong>如果只是单个 workspace 的话，其实是没必要去设置 Sccahe， 除非有多个项目都依赖了相同版本的组件。</strong><ul>
+<li><strong>Rust 本身就支持单个 workspace 编译缓存的</strong>，但多个 workspace 如果引用了部分相同版本的组件，每个workspace或独立项目都要编译这些相同版本的组件，这样是没必要的，因此 mozilla 搞了个跨 workspace 缓存工具 Sccahe</li>
+</ul>
+</li>
+</ul>
+<h2 id="Sccahe"><a href="#Sccahe" class="headerlink" title="Sccahe"></a>Sccahe</h2><ul>
+<li>详细配置请查看官方仓库 <a target="_blank" rel="noopener" href="https://github.com/mozilla/sccache">mozilla/sccache</a></li>
+<li>使用 sccache 编译时会启动一个后台服务，因为这玩意是 CS 架构，不止支持本地缓存，还支持各种云，默认10分钟无数据交互就会自动关闭服务</li>
+<li><strong>注意一点，如果当前状态(<code>sccache --show-stats</code>)与你自定义的配置不符，请停止服务(<code>sccache --stop-server</code>)，刷新shell环境(<code>source ~/.zshrc</code>)</strong></li>
+</ul>
+<h2 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h2><pre class="line-numbers language-zsh"><code class="language-zsh">brew install sccache # 直接取得二进制文件，而不是使用cargo重新编译
+
+# 在 .zshrc 或其他shell的配置文件中添加下面几个环境变量:
+# 设置最大缓存为 5G 默认为 10G
+export SCCACHE_CACHE_SIZE="5G"
+# 设置缓存保存路径，默认 MacOS 为 `~/Library/Caches/Mozilla.sccache`
+export SCCACHE_DIR="$HOME/.cargo/sccache"
+# sccache 程序路径
+export RUSTC_WRAPPER="sccache"
+
+# 查看缓存服务状态
+sccache --show-stats
+
+# 停止与启动
+sccache --stop-server
+sccache --start-server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>配置好后直接正常使用 <code>cargo build</code> 即可，这里编译下 RustScan 做测试<br>初次编译花了<code>1m 8s</code>，注意这个速度是提前下好依赖了(即不包括下载时间)<br><img src="/img/0/2020-11-08-00-13-08.png"></p>
+<p>然后使用 <code>cargo clean</code> 清理编译数据，再次编译时 sccache 就开始发挥效果了，直接缩短为<code>22.79s</code><br><img src="/img/0/2020-11-08-00-16-28.png"></p>
+</p></div><div class="pagination"><p class="clearfix"><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2020/01/25/2019_Summed/" title="EXHades' 2019 Summed">Next post: EXHades' 2019 Summed&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>
